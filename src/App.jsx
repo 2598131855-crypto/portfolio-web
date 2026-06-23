@@ -1,45 +1,147 @@
 import { useEffect, useRef, useState } from 'react'
 
-const projects = [
+const menuItems = [
   {
     id: '01',
-    anchor: 'graphic-works',
-    title: '存虚交汇，本真共在',
-    english: 'AI / PARADOX',
-    type: '视觉实验 · 书籍设计',
-    image: '/images/project-01.webp',
-    description: '从算法、信任与悖论出发，讨论虚拟经验与真实感知之间不断变化的边界。',
+    title: 'ABOUT ME',
+    subtitle: 'Profile & biography',
+    href: '#about',
+    image: '/images/content-about-v2.jpg',
   },
   {
     id: '02',
-    anchor: 'digital-works',
-    title: '和音边界，重构再验',
-    english: 'MUSIC / MOVE',
-    type: '动态视觉 · 信息叙事',
-    image: '/images/project-02.webp',
-    description: '把声音、影像和空间线索拆解重组，让听觉经验转化为可阅读的视觉路径。',
+    title: 'DESIGN WORKS',
+    subtitle: 'Visual design & narrative',
+    href: '#design-works',
+    image: '/images/content-design-v2.jpg',
   },
   {
     id: '03',
-    anchor: 'shape-works',
-    title: '造型基础四则',
-    english: 'SKETCH / BASIS',
-    type: '造型研究 · 综合材料',
-    image: '/images/project-03.webp',
-    description: '围绕观察、结构、质感与叙事展开的阶段性造型研究，保留材料本身的痕迹。',
+    title: 'PLASTIC WORKS',
+    subtitle: 'Sculpture & drawing',
+    href: '#plastic-works',
+    image: '/images/content-sculpture-v2.jpg',
   },
   {
     id: '04',
-    title: '在校习作',
-    english: 'SCHOOL / ASSIGNMENT',
-    type: '绘画 · 人物研究',
-    image: '/images/project-04.webp',
-    description: '以人物为核心的素描与色彩练习，关注身体、表情以及日常场景中的微妙关系。',
+    title: 'DIGITAL WORKS',
+    subtitle: 'Image, particles & motion',
+    href: '#digital-works',
+    image: '/images/content-digital-v3.png',
   },
+]
+
+const designBookPages = [
+  '/images/design-book-01.jpg',
+  '/images/design-book-02.webp',
+  '/images/design-book-03.webp',
+  '/images/design-book-04.jpg',
+  '/images/design-book-05.jpg',
+]
+
+const plasticWorks = [
+  { image: '/images/plastic-work-01.jpg', title: 'PLASTER STUDY', medium: 'Pencil on paper' },
+  { image: '/images/plastic-work-02.jpg', title: 'SEATED FIGURE', medium: 'Pencil on paper' },
+  { image: '/images/plastic-work-03.jpg', title: 'PORTRAIT STUDY I', medium: 'Pencil on paper' },
+  { image: '/images/plastic-work-04.jpg', title: 'OBJECTS & LIGHT', medium: 'Pencil on paper' },
+  { image: '/images/plastic-work-05.jpg', title: 'THE WORKER', medium: 'Oil on canvas' },
+  { image: '/images/plastic-work-06.jpg', title: 'PORTRAIT STUDY II', medium: 'Pencil on paper' },
+  { image: '/images/plastic-work-07.jpg', title: 'WATERSIDE', medium: 'Oil on canvas' },
+  { image: '/images/plastic-work-08.jpg', title: 'SEATED PORTRAIT', medium: 'Pencil on paper' },
+  { image: '/images/plastic-work-09.jpg', title: 'TREES IN SHADOW', medium: 'Charcoal on paper' },
+  { image: '/images/plastic-work-10.jpg', title: 'INTERIOR', medium: 'Oil on canvas' },
 ]
 
 function Arrow({ diagonal = false }) {
   return <span aria-hidden="true">{diagonal ? '↗' : '→'}</span>
+}
+
+function PortfolioTail() {
+  const tailRef = useRef(null)
+  const markRef = useRef(null)
+
+  const handlePointerMove = (event) => {
+    const tail = tailRef.current
+    const mark = markRef.current
+    if (!tail || !mark) return
+
+    const bounds = tail.getBoundingClientRect()
+    const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width))
+    const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height))
+
+    tail.style.setProperty('--tail-x', `${(x * 100).toFixed(1)}%`)
+    tail.style.setProperty('--tail-y', `${(y * 100).toFixed(1)}%`)
+    mark.style.setProperty('--mark-x', `${((x - .5) * 18).toFixed(2)}px`)
+    mark.style.setProperty('--mark-y', `${((y - .5) * 12).toFixed(2)}px`)
+  }
+
+  const resetPointer = () => {
+    const tail = tailRef.current
+    const mark = markRef.current
+    tail?.style.setProperty('--tail-x', '24%')
+    tail?.style.setProperty('--tail-y', '16%')
+    mark?.style.setProperty('--mark-x', '0px')
+    mark?.style.setProperty('--mark-y', '0px')
+  }
+
+  return (
+    <section
+      className="portfolio-tail"
+      id="contact"
+      ref={tailRef}
+      data-page-scene
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+    >
+      <div className="page-transition-sweep page-transition-sweep-dark" aria-hidden="true" />
+      <div className="tail-beams" aria-hidden="true" />
+      <a className="tail-menu-button" href="#menu">
+        <span>CONTENTS</span>
+        <b>+</b>
+      </a>
+
+      <h2 className="tail-mark" ref={markRef} data-reveal>Bev.</h2>
+
+      <p className="tail-statement" data-reveal>
+        Turning observation into<br />
+        <strong>visible form.</strong>
+      </p>
+
+      <div className="tail-columns" data-reveal>
+        <div>
+          <span>PRACTICE</span>
+          <a href="#menu">Visual Design</a>
+          <a href="#menu">Image Making</a>
+          <a href="#menu">Form Studies</a>
+          <a href="#menu">Digital Experiments</a>
+        </div>
+        <div>
+          <span>QUICK LINKS</span>
+          <a href="#home">Home</a>
+          <a href="#menu">Contents</a>
+          <a href="#about">About Me</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div>
+          <span>CONTACT</span>
+          <p>Beijing, China</p>
+          <a href="mailto:jingjingtian855@gmail.com">jingjingtian855@gmail.com</a>
+          <p>Open to new ideas<br />and creative exchange.</p>
+        </div>
+        <div>
+          <span>STATUS</span>
+          <p>Portfolio 2021—2026</p>
+          <p>Visual design<br />image & form</p>
+        </div>
+      </div>
+
+      <div className="tail-bottom">
+        <span>© 2026 BEVERLY BRENNAN</span>
+        <span>PORTFOLIO / 2021—2026</span>
+        <a href="#home">BACK TO TOP ↑</a>
+      </div>
+    </section>
+  )
 }
 
 function App() {
@@ -49,7 +151,10 @@ function App() {
   const [heroScene, setHeroScene] = useState('construction')
   const [peelOffset, setPeelOffset] = useState({ x: 0, y: 0 })
   const [isPeeling, setIsPeeling] = useState(false)
+  const [mapOffset, setMapOffset] = useState({ x: 0, y: 0 })
+  const [isMapDragging, setIsMapDragging] = useState(false)
   const dragState = useRef(null)
+  const returnDragState = useRef(null)
   const revealTimer = useRef(null)
   const tapeMessage = 'I am Beverly Brennan · Welcome to my website'
 
@@ -101,6 +206,11 @@ function App() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (entry.target.hasAttribute('data-scroll-reveal')) {
+            entry.target.classList.toggle('is-visible', entry.isIntersecting)
+            return
+          }
+
           if (entry.isIntersecting) entry.target.classList.add('is-visible')
         })
       },
@@ -112,14 +222,119 @@ function App() {
     const updateProgress = () => {
       const height = document.documentElement.scrollHeight - window.innerHeight
       setScrollProgress(height > 0 ? window.scrollY / height : 0)
+
+      const viewportHeight = window.innerHeight
+      document.querySelectorAll('[data-page-scene]').forEach((scene) => {
+        const bounds = scene.getBoundingClientRect()
+        const enter = Math.max(0, Math.min(1, (viewportHeight - bounds.top) / (viewportHeight * .72)))
+        const exit = Math.max(0, Math.min(1, -bounds.top / (viewportHeight * .72)))
+        const opacity = Math.max(.12, enter * (1 - exit * .58))
+        const translateY = (1 - enter) * 76 - exit * 46
+        const blur = (1 - enter) * 11 + exit * 7
+        const scale = .972 + enter * .028 - exit * .012
+
+        scene.style.setProperty('--scene-enter', enter.toFixed(3))
+        scene.style.setProperty('--scene-exit', exit.toFixed(3))
+        scene.style.setProperty('--scene-opacity', opacity.toFixed(3))
+        scene.style.setProperty('--scene-y', `${translateY.toFixed(2)}px`)
+        scene.style.setProperty('--scene-blur', `${blur.toFixed(2)}px`)
+        scene.style.setProperty('--scene-scale', scale.toFixed(4))
+        scene.style.setProperty('--scene-clip', `${((1 - enter) * 100).toFixed(2)}%`)
+        scene.style.setProperty('--scene-sweep-y', `${(-enter * 112).toFixed(2)}%`)
+      })
+
+      const menuSection = document.querySelector('#menu')
+      const menuImages = document.querySelectorAll('.menu-card-image')
+      if (menuSection && menuImages.length) {
+        const menuBounds = menuSection.getBoundingClientRect()
+        const travel = Math.max(280, window.innerHeight * .5)
+        const exitProgress = Math.max(0, Math.min(1, -menuBounds.top / travel))
+        const delayedProgress = Math.max(0, Math.min(1, (exitProgress - .38) / .62))
+
+        menuImages.forEach((image) => {
+          image.style.setProperty('--dissolve-progress', delayedProgress.toFixed(3))
+          image.style.setProperty('--edge-start', `${(100 - delayedProgress * 42).toFixed(1)}%`)
+        })
+      }
+
+      const graphicSection = document.querySelector('#design-works')
+      const graphicTrack = graphicSection?.querySelector('.graphic-chapter-track')
+      if (graphicSection && graphicTrack) {
+        const trackWidth = graphicTrack.scrollWidth
+        const horizontalTravel = Math.max(0, trackWidth - window.innerWidth)
+        const sectionHeight = viewportHeight + horizontalTravel
+        graphicSection.style.height = `${sectionHeight}px`
+
+        const graphicBounds = graphicSection.getBoundingClientRect()
+        const horizontalProgress = horizontalTravel > 0
+          ? Math.max(0, Math.min(1, -graphicBounds.top / horizontalTravel))
+          : 0
+
+        graphicTrack.style.setProperty('--graphic-x', `${(-horizontalTravel * horizontalProgress).toFixed(2)}px`)
+        graphicSection.style.setProperty('--graphic-progress', horizontalProgress.toFixed(3))
+      }
+
+      const bookSection = document.querySelector('#design-book')
+      const bookPages = bookSection?.querySelectorAll('.design-book-page')
+      if (bookSection && bookPages?.length) {
+        const pageCount = bookPages.length
+        const bookTravel = viewportHeight * (pageCount - 1) * .95
+        bookSection.style.height = `${viewportHeight + bookTravel}px`
+
+        const bookBounds = bookSection.getBoundingClientRect()
+        const bookProgress = bookTravel > 0
+          ? Math.max(0, Math.min(1, -bookBounds.top / bookTravel))
+          : 0
+        const pageProgress = bookProgress * (pageCount - 1)
+        const currentPage = Math.min(pageCount, Math.floor(pageProgress + .5) + 1)
+
+        bookSection.style.setProperty('--book-progress', bookProgress.toFixed(3))
+        bookSection.querySelector('.design-book-current')?.replaceChildren(String(currentPage).padStart(2, '0'))
+
+        bookPages.forEach((page, index) => {
+          const turn = Math.max(0, Math.min(1, pageProgress - index))
+          const easedTurn = turn * turn * (3 - 2 * turn)
+          const fold = Math.sin(Math.PI * turn)
+          page.style.setProperty('--book-angle', `${(-178 * easedTurn).toFixed(2)}deg`)
+          page.style.setProperty('--book-lift', `${(-14 * fold).toFixed(2)}px`)
+          page.style.setProperty('--book-fold', fold.toFixed(3))
+        })
+      }
+
+      const plasticSection = document.querySelector('#plastic-works')
+      const plasticRing = plasticSection?.querySelector('.plastic-cylinder-ring')
+      const plasticPanels = plasticSection?.querySelectorAll('.plastic-cylinder-panel')
+      if (plasticSection && plasticRing && plasticPanels?.length) {
+        const plasticTravel = viewportHeight * 3.15
+        plasticSection.style.height = `${viewportHeight + plasticTravel}px`
+
+        const plasticBounds = plasticSection.getBoundingClientRect()
+        const plasticProgress = Math.max(0, Math.min(1, -plasticBounds.top / plasticTravel))
+        const rotation = plasticProgress * -(360 - 360 / plasticPanels.length)
+        const activeIndex = Math.round(plasticProgress * (plasticPanels.length - 1)) % plasticPanels.length
+
+        plasticSection.style.setProperty('--plastic-progress', plasticProgress.toFixed(3))
+        plasticRing.style.setProperty('--plastic-rotation', `${rotation.toFixed(2)}deg`)
+        plasticSection.querySelector('.plastic-cylinder-current')?.replaceChildren(String(activeIndex + 1).padStart(2, '0'))
+
+        plasticPanels.forEach((panel, index) => {
+          const rawAngle = (index * (360 / plasticPanels.length) + rotation) % 360
+          const frontDistance = Math.abs(((rawAngle + 540) % 360) - 180)
+          const focus = Math.max(0, 1 - frontDistance / 112)
+          panel.style.setProperty('--panel-focus', focus.toFixed(3))
+          panel.classList.toggle('is-front', frontDistance < 20)
+        })
+      }
     }
 
     updateProgress()
     window.addEventListener('scroll', updateProgress, { passive: true })
+    window.addEventListener('resize', updateProgress)
 
     return () => {
       observer.disconnect()
       window.removeEventListener('scroll', updateProgress)
+      window.removeEventListener('resize', updateProgress)
     }
   }, [])
 
@@ -173,6 +388,82 @@ function App() {
     }
   }
 
+  const showConstruction = () => {
+    window.clearTimeout(revealTimer.current)
+    dragState.current = null
+    returnDragState.current = null
+    setIsPeeling(false)
+    setIsMapDragging(false)
+    setPeelOffset({ x: 0, y: 0 })
+    setMapOffset({ x: 0, y: 0 })
+    setHeroScene('construction')
+  }
+
+  const completeReturn = () => {
+    if (heroScene !== 'map') return
+
+    returnDragState.current = null
+    setIsMapDragging(false)
+    setPeelOffset({ x: 0, y: 0 })
+    setMapOffset({ x: -window.innerWidth * 0.34, y: window.innerHeight * 0.28 })
+    setHeroScene('restoring')
+
+    revealTimer.current = window.setTimeout(() => {
+      setMapOffset({ x: 0, y: 0 })
+      setHeroScene('construction')
+    }, 820)
+  }
+
+  const handleMapStart = (event) => {
+    if (heroScene !== 'map' || event.target.closest('a')) return
+
+    event.currentTarget.setPointerCapture(event.pointerId)
+    returnDragState.current = { x: event.clientX, y: event.clientY }
+    setIsMapDragging(true)
+  }
+
+  const handleMapMove = (event) => {
+    if (!returnDragState.current || heroScene !== 'map') return
+
+    const x = event.clientX - returnDragState.current.x
+    const y = event.clientY - returnDragState.current.y
+    setMapOffset({ x, y })
+
+    if (Math.hypot(x, y) > 220 && (x < -70 || y > 70)) completeReturn()
+  }
+
+  const handleMapEnd = (event) => {
+    if (!returnDragState.current) return
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+
+    returnDragState.current = null
+    setIsMapDragging(false)
+    setMapOffset({ x: 0, y: 0 })
+  }
+
+  const handleMapKey = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      completeReturn()
+    }
+  }
+
+  const handlePlasticPointerMove = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width - .5
+    const y = (event.clientY - bounds.top) / bounds.height - .5
+    event.currentTarget.style.setProperty('--plastic-pointer-rotate', `${(x * 10).toFixed(2)}deg`)
+    event.currentTarget.style.setProperty('--plastic-pointer-tilt', `${(-5 - y * 4).toFixed(2)}deg`)
+  }
+
+  const resetPlasticPointer = (event) => {
+    event.currentTarget.style.setProperty('--plastic-pointer-rotate', '0deg')
+    event.currentTarget.style.setProperty('--plastic-pointer-tilt', '-5deg')
+  }
+
   return (
     <main>
       <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} />
@@ -194,24 +485,41 @@ function App() {
         id="home"
       >
         <header className="nav hero-nav shell">
-          <a className="wordmark hero-wordmark" href="#home" aria-label="返回首页">
-            PORTFOLIO<span>®</span>
+          <a className="wordmark hero-wordmark" href="#home" aria-label="返回首页" onClick={showConstruction}>
+            Beverly Brennan<span>®</span>
           </a>
           <nav aria-label="主导航">
-            <a href="#home">HOME</a>
+            <a href="#home" onClick={showConstruction}>HOME</a>
             <a href="#about">ABOUT ME</a>
-            <a href="#graphic-works">DESIGN WORKS</a>
-            <a href="#shape-works">PLASTIC WORKS</a>
+            <a href="#design-works">DESIGN WORKS</a>
+            <a href="#plastic-works">PLASTIC WORKS</a>
             <a href="#digital-works">DIGITAL WORKS</a>
           </nav>
         </header>
 
-        <div className="final-map-layer" aria-hidden={heroScene !== 'map'}>
+        <div
+          className={`final-map-layer ${isMapDragging ? 'is-dragging' : ''}`}
+          style={{
+            '--map-x': `${mapOffset.x}px`,
+            '--map-y': `${mapOffset.y}px`,
+            '--map-rotate': `${Math.max(-8, Math.min(8, mapOffset.x / 80))}deg`,
+          }}
+          role="button"
+          tabIndex={heroScene === 'map' ? 0 : -1}
+          aria-label="向左下拖动返回胶带页面"
+          aria-hidden={heroScene !== 'map'}
+          onPointerDown={handleMapStart}
+          onPointerMove={handleMapMove}
+          onPointerUp={handleMapEnd}
+          onPointerCancel={handleMapEnd}
+          onKeyDown={handleMapKey}
+        >
           <div className="final-map-heading">
             <strong>04 / PORTFOLIO</strong>
           </div>
-          <img src="/images/hero-map-pattern.webp" alt="作品集四个章节的流程图" />
-          <a className="final-map-arrow" href="#about" aria-label="前往关于我">
+          <img src="/images/hero-map-pattern.webp" alt="作品集四个章节的流程图" draggable="false" />
+          <span className="map-return-instruction">DRAG DOWN LEFT TO RETURN</span>
+          <a className="final-map-arrow" href="#menu" aria-label="前往目录页">
             <Arrow />
           </a>
         </div>
@@ -230,7 +538,7 @@ function App() {
               <span>Welcome to my website</span>
             </div>
 
-            <p className="peel-instruction">Drag the tape up and away to enter</p>
+            <p className="peel-instruction">DRAG THE TAPE UP ...</p>
 
             <div
               className={`tape-cluster ${isPeeling ? 'is-dragging' : ''}`}
@@ -248,7 +556,7 @@ function App() {
               onPointerCancel={handlePeelEnd}
               onKeyDown={handlePeelKey}
             >
-              {[1, 2, 3].map((tape) => (
+              {[1, 2, 3, 4].map((tape) => (
                 <div className={`tape-strip tape-strip-${tape}`} key={tape}>
                   <div className="tape-copy">
                     <span>{tapeMessage}</span>
@@ -263,128 +571,224 @@ function App() {
         </div>
       </section>
 
-      <section className="about section" id="about">
+      <section className="menu-section page-scroll-scene" id="menu" data-page-scene>
+        <div className="page-transition-sweep" aria-hidden="true" />
         <div className="shell">
-          <div className="section-label" data-reveal>
-            <span>(01)</span>
-            <span>ABOUT / 关于我</span>
-            <span>敦化 → 北京</span>
+          <header className="menu-nav">
+            <a className="wordmark hero-wordmark" href="#home" aria-label="Back to home">
+              Beverly Brennan<span>&reg;</span>
+            </a>
+            <nav aria-label="Contents navigation">
+              <a href="#home">HOME</a>
+              <a href="#about">ABOUT ME</a>
+              <a href="#design-works">DESIGN WORKS</a>
+              <a href="#plastic-works">PLASTIC WORKS</a>
+              <a href="#digital-works">DIGITAL WORKS</a>
+            </nav>
+          </header>
+
+          <div className="menu-top" data-reveal data-scroll-reveal>
+            <h2>CONTENTS</h2>
+            <p>
+              Four chapters form this portfolio. Select a direction to enter,
+              or keep scrolling to browse the complete story.
+            </p>
           </div>
 
-          <div className="about-grid">
-            <div className="portrait-wrap" data-reveal>
-              <div className="portrait-number">2005</div>
-              <img src="/images/portrait.webp" alt="田京京个人照片" />
-              <div className="portrait-caption">
-                <span>田京京</span>
-                <span>TIAN JINGJING</span>
-              </div>
-            </div>
-
-            <div className="about-copy" data-reveal>
-              <p className="eyebrow">A YOUNG CREATIVE, STILL BECOMING.</p>
-              <h2>
-                我把模糊的感受，
-                <em>变成可以被看见的秩序。</em>
-              </h2>
-              <p className="about-body">
-                我是田京京，来自吉林敦化，现就读于央美附中。我的创作游走于平面设计、动态视觉与造型研究之间，喜欢从音乐、文字和日常观察中寻找线索，再通过图像建立新的叙事关系。
-              </p>
-
-              <div className="details">
-                <div>
-                  <span>院校</span>
-                  <strong>中央美术学院附属中等美术学校</strong>
+          <div className="menu-grid">
+            {menuItems.map((item) => (
+              <a className="menu-card" href={item.href} key={item.id} data-reveal data-scroll-reveal>
+                <span className="menu-card-index">{item.id}</span>
+                <div className="menu-card-image" style={{ '--menu-image': `url("${item.image}")` }}>
+                  <img src={item.image} alt={item.title} loading="lazy" />
                 </div>
-                <div>
-                  <span>兴趣</span>
-                  <strong>摇滚音乐 / 书法 / 骑行</strong>
-                </div>
-                <div>
-                  <span>联系</span>
-                  <strong>邮箱及社交账号待补充</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="stats" data-reveal>
-            <div><strong>04</strong><span>精选项目</span></div>
-            <div><strong>04+</strong><span>年持续创作</span></div>
-            <div><strong>03</strong><span>创作方向</span></div>
-            <div><strong>01</strong><span>持续生长的自我</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="works section" id="works">
-        <div className="shell">
-          <div className="section-label section-label-light" data-reveal>
-            <span>(02)</span>
-            <span>SELECTED WORKS / 项目</span>
-            <span>2021—2026</span>
-          </div>
-
-          <div className="works-heading" data-reveal>
-            <h2>SELECTED<br /><em>WORKS</em></h2>
-            <p>从概念到画面，四组关于媒介、声音、造型与人的视觉记录。</p>
-          </div>
-
-          <div className="project-list">
-            {projects.map((project) => (
-              <article className="project" id={project.anchor} key={project.id} data-reveal>
-                <div className="project-media">
-                  <img src={project.image} alt={`${project.title}项目展板`} loading="lazy" />
-                  <span className="project-open"><Arrow diagonal /></span>
-                  <span className="project-id">/{project.id}</span>
-                </div>
-                <div className="project-meta">
-                  <div>
-                    <span>{project.type}</span>
-                    <h3>{project.title}</h3>
-                  </div>
-                  <p>{project.description}</p>
-                  <strong>{project.english}</strong>
-                </div>
-              </article>
+                <h3>{item.title}</h3>
+                <p>{item.subtitle}</p>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="contact" id="contact">
-        <div className="contact-lines" aria-hidden="true" />
-        <div className="shell contact-inner">
-          <div className="section-label" data-reveal>
-            <span>(03)</span>
-            <span>CONTACT / 保持联系</span>
-            <span>AVAILABLE FOR NEW IDEAS</span>
-          </div>
-
-          <div className="contact-main" data-reveal>
-            <p>有一个值得一起实现的想法？</p>
-            <h2>LET'S MAKE<br /><em>SOMETHING REAL.</em></h2>
-          </div>
-
-          <div className="contact-bottom" data-reveal>
-            <div className="contact-note">
-              <span>EMAIL</span>
-              <strong>待补充 / TO BE ADDED</strong>
-              <p>正式邮箱和社交账号可在下一轮内容完善时接入。</p>
-            </div>
-            <a className="contact-circle" href="#home" aria-label="返回顶部">
-              <span>BACK TO TOP</span>
-              <span>↑</span>
+      <section className="about-profile page-scroll-scene" id="about" data-page-scene>
+        <div className="page-transition-sweep page-transition-sweep-paper" aria-hidden="true" />
+        <div className="shell">
+          <header className="menu-nav about-nav">
+            <a className="wordmark hero-wordmark" href="#home" aria-label="Back to home">
+              Beverly Brennan<span>&reg;</span>
             </a>
-          </div>
+            <nav aria-label="About navigation">
+              <a href="#home">HOME</a>
+              <a href="#about">ABOUT ME</a>
+              <a href="#design-works">DESIGN WORKS</a>
+              <a href="#plastic-works">PLASTIC WORKS</a>
+              <a href="#digital-works">DIGITAL WORKS</a>
+            </nav>
+          </header>
 
-          <footer>
-            <span>© 2026 TIAN JINGJING</span>
-            <span>DESIGNED WITH CURIOSITY</span>
-            <span>吉林敦化 / 北京</span>
-          </footer>
+          <div className="about-profile-grid">
+            <div className="about-profile-title">
+              <span>01 / PERSONAL PROFILE</span>
+              <h2>ABOUT<br />ME</h2>
+              <p>Visual design, image making<br />and digital experiments.</p>
+            </div>
+
+            <div className="about-profile-copy">
+              <div className="about-name-row">
+                <p>田京京</p>
+                <span>Beverly Brennan</span>
+              </div>
+              <h3>中国传媒大学<br /><em>在读</em></h3>
+              <p className="about-profile-intro">
+                我关注视觉叙事、图像与形态之间的关系，喜欢把日常观察与生活经验，
+                转化为克制但有张力的视觉表达。
+              </p>
+
+              <div className="about-interests">
+                <span className="about-interests-label">INTERESTS / 悬停查看</span>
+                <div className="about-interest-list">
+                  <span className="about-interest about-interest-rock" tabIndex="0">
+                    摇滚
+                    <img src="/images/about-rock.png" alt="两把贝斯与琴包" />
+                  </span>
+                  <span className="about-interest about-interest-cycling" tabIndex="0">
+                    骑行
+                    <img src="/images/about-cycling.png" alt="公路自行车" />
+                  </span>
+                  <span className="about-interest about-interest-calligraphy" tabIndex="0">
+                    书法
+                    <img src="/images/about-calligraphy.png" alt="书法作品" />
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="about-portrait-block">
+              <div className="about-portrait-frame">
+                <img src="/images/content-about-v2.jpg" alt="田京京个人照片" />
+              </div>
+              <div className="about-profile-details">
+                <span>BASED IN</span><strong>BEIJING, CHINA</strong>
+                <span>CONTACT</span><a href="mailto:jingjingtian855@gmail.com">jingjingtian855@gmail.com</a>
+                <span>STATUS</span><strong>STUDENT / DESIGNER</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      <section className="graphic-chapter" id="design-works">
+        <div className="graphic-chapter-sticky">
+          <div className="graphic-chapter-track">
+            <img
+              src="/images/design-works-spread.webp"
+              alt="平面作品章节：虚实交汇，本真共在"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="design-book" id="design-book">
+        <div className="design-book-sticky">
+          <header className="menu-nav design-book-nav shell">
+            <a className="wordmark hero-wordmark" href="#home" aria-label="Back to home">
+              Beverly Brennan<span>&reg;</span>
+            </a>
+            <nav aria-label="Design works navigation">
+              <a href="#home">HOME</a>
+              <a href="#about">ABOUT ME</a>
+              <a href="#design-works">DESIGN WORKS</a>
+              <a href="#plastic-works">PLASTIC WORKS</a>
+              <a href="#digital-works">DIGITAL WORKS</a>
+            </nav>
+          </header>
+
+          <div className="design-book-meta">
+            <span>02 / DESIGN WORKS</span>
+            <span><b className="design-book-current">01</b> / {String(designBookPages.length).padStart(2, '0')}</span>
+          </div>
+
+          <div className="design-book-stage">
+            <div className="design-book-spine" aria-hidden="true" />
+            <div className="design-book-pages">
+              {designBookPages.map((page, index) => (
+                <figure
+                  className="design-book-page"
+                  key={page}
+                  style={{ zIndex: designBookPages.length - index }}
+                >
+                  <img
+                    src={page}
+                    alt={`平面作品展示第 ${index + 1} 页`}
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                    draggable="false"
+                  />
+                </figure>
+              ))}
+            </div>
+          </div>
+
+          <p className="design-book-hint">SCROLL TO TURN THE PAGES</p>
+        </div>
+      </section>
+
+      <section
+        className="plastic-cylinder-section"
+        id="plastic-works"
+        onPointerMove={handlePlasticPointerMove}
+        onPointerLeave={resetPlasticPointer}
+      >
+        <div className="plastic-cylinder-sticky">
+          <div className="plastic-room-background" aria-hidden="true" />
+
+          <header className="menu-nav plastic-cylinder-nav shell">
+            <a className="wordmark hero-wordmark" href="#home" aria-label="Back to home">
+              Beverly Brennan<span>&reg;</span>
+            </a>
+            <nav aria-label="Plastic works navigation">
+              <a href="#home">HOME</a>
+              <a href="#about">ABOUT ME</a>
+              <a href="#design-works">DESIGN WORKS</a>
+              <a href="#plastic-works">PLASTIC WORKS</a>
+              <a href="#digital-works">DIGITAL WORKS</a>
+            </nav>
+          </header>
+
+          <div className="plastic-cylinder-meta">
+            <div>
+              <span>03 / PLASTIC WORKS</span>
+              <h2>FORM<br />STUDIES</h2>
+            </div>
+            <p><b className="plastic-cylinder-current">01</b> / {String(plasticWorks.length).padStart(2, '0')}</p>
+          </div>
+
+          <div className="plastic-cylinder-viewport">
+            <div className="plastic-cylinder-ring">
+              {plasticWorks.map((work, index) => (
+                <figure
+                  className="plastic-cylinder-panel"
+                  key={work.image}
+                  style={{ '--panel-angle': `${index * (360 / plasticWorks.length)}deg` }}
+                >
+                  <div className="plastic-cylinder-frame">
+                    <img src={work.image} alt={work.title} loading={index < 3 ? 'eager' : 'lazy'} draggable="false" />
+                  </div>
+                  <figcaption>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{work.title}</strong>
+                    <small>{work.medium}</small>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+
+          <p className="plastic-cylinder-hint">SCROLL TO ROTATE / MOVE TO SHIFT VIEW</p>
+        </div>
+      </section>
+
+      <PortfolioTail />
     </main>
   )
 }
