@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#becbc0"/>
+      <stop offset=".48" stop-color="#aebfb2"/>
+      <stop offset="1" stop-color="#c8d1c6"/>
+    </linearGradient>
+    <radialGradient id="metal" cx="35%" cy="28%" r="78%">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".35" stop-color="#d8d8d2"/>
+      <stop offset=".7" stop-color="#777873"/>
+      <stop offset="1" stop-color="#171817"/>
+    </radialGradient>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <filter id="shadow" x="-80%" y="-80%" width="260%" height="260%">
+      <feDropShadow dx="1.5" dy="2.5" stdDeviation="1.8" flood-color="#102219" flood-opacity=".5"/>
+    </filter>
+    <g id="knob" filter="url(#shadow)">
+      <circle r="12" fill="#111310"/>
+      <circle r="8.6" fill="url(#metal)" stroke="#f1f0e7" stroke-width="1"/>
+      <path d="M0-7V2" stroke="#171817" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cy="5" r="1.2" fill="#e9e8df"/>
+    </g>
+    <g id="toggle" filter="url(#shadow)">
+      <rect x="-11" y="-10" width="22" height="20" rx="2" fill="#161815"/>
+      <circle cy="-2" r="6.5" fill="url(#metal)"/>
+      <path d="M0-7V3" stroke="#222" stroke-width="2"/>
+    </g>
+    <g id="label">
+      <rect x="-28" y="-7" width="56" height="14" rx="1" fill="#efe8df" opacity=".9"/>
+      <path d="M-19-2H18M-19 2H9" stroke="#978e84" stroke-width="1" opacity=".65"/>
+    </g>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#panel)"/>
+  <rect width="1920" height="1080" filter="url(#grain)" opacity=".085"/>
+
+  <g fill="none" stroke="#b97a3b" stroke-width="3" opacity=".78">
+    <path d="M-40 330H1940M-40 365H1940M-40 405H1940"/>
+    <path d="M60 330V265H150V78H285V330M190 330V210H240V330"/>
+    <path d="M345 330V36M415 330V82M485 330V20M555 330V66M625 330V14M695 330V62M765 330V5M835 330V74M905 330V26"/>
+    <path d="M345 185H388V330M415 136H460V330M485 178H530V330M555 132H598V330M625 180H670V330M695 134H740V330M765 176H810V330M835 130H878V330"/>
+    <path d="M1035 330V42M1110 330V96M1185 330V28M1260 330V80M1335 330V10M1410 330V64M1485 330V22"/>
+    <path d="M1035 176H1080V330M1110 132H1154V330M1185 178H1230V330M1260 128H1304V330M1335 174H1380V330M1410 126H1455V330"/>
+    <path d="M1585 365V255H1640V405M1685 365V215H1745V405M1790 365V270H1848V405M1890 365V190"/>
+    <path d="M0 405V535H80V720M125 405V560H205V740M250 405V520H315V700"/>
+    <path d="M1535 405V560H1605V760M1660 405V520H1735V735M1790 405V575H1870V760"/>
+    <path d="M1290 1080V840H1370V730H1480V1080M1540 1080V870H1625V780H1715V1080M1775 1080V835H1855V730H1935"/>
+  </g>
+
+  <g fill="none" stroke="#d3ad29" stroke-width="5" opacity=".82">
+    <path d="M82 720V904C82 930 118 930 118 904V780"/>
+    <path d="M1605 760V910M1735 735V910M1870 760V910"/>
+    <circle cx="100" cy="950" r="31"/>
+    <circle cx="1605" cy="958" r="31"/>
+    <circle cx="1735" cy="958" r="31"/>
+    <circle cx="1870" cy="958" r="31"/>
+  </g>
+
+  <g>
+    <use href="#knob" x="150" y="105"/><use href="#toggle" x="214" y="164"/><use href="#knob" x="268" y="112"/>
+    <use href="#knob" x="150" y="230"/><use href="#knob" x="238" y="246"/><use href="#knob" x="150" y="292"/>
+    <use href="#knob" x="345" y="74"/><use href="#toggle" x="345" y="153"/><use href="#knob" x="345" y="236"/>
+    <use href="#knob" x="415" y="111"/><use href="#knob" x="415" y="190"/><use href="#knob" x="415" y="282"/>
+    <use href="#knob" x="485" y="58"/><use href="#toggle" x="485" y="146"/><use href="#knob" x="485" y="234"/>
+    <use href="#knob" x="555" y="104"/><use href="#knob" x="555" y="188"/><use href="#knob" x="555" y="280"/>
+    <use href="#knob" x="625" y="52"/><use href="#toggle" x="625" y="142"/><use href="#knob" x="625" y="234"/>
+    <use href="#knob" x="695" y="101"/><use href="#knob" x="695" y="188"/><use href="#knob" x="695" y="280"/>
+    <use href="#knob" x="765" y="48"/><use href="#toggle" x="765" y="141"/><use href="#knob" x="765" y="233"/>
+    <use href="#knob" x="835" y="101"/><use href="#knob" x="835" y="187"/><use href="#knob" x="835" y="280"/>
+    <use href="#knob" x="905" y="62"/><use href="#toggle" x="905" y="150"/><use href="#knob" x="905" y="245"/>
+
+    <use href="#knob" x="1035" y="70"/><use href="#toggle" x="1035" y="152"/><use href="#knob" x="1035" y="236"/>
+    <use href="#knob" x="1110" y="112"/><use href="#knob" x="1110" y="191"/><use href="#knob" x="1110" y="280"/>
+    <use href="#knob" x="1185" y="59"/><use href="#toggle" x="1185" y="148"/><use href="#knob" x="1185" y="235"/>
+    <use href="#knob" x="1260" y="107"/><use href="#knob" x="1260" y="190"/><use href="#knob" x="1260" y="280"/>
+    <use href="#knob" x="1335" y="53"/><use href="#toggle" x="1335" y="145"/><use href="#knob" x="1335" y="234"/>
+    <use href="#knob" x="1410" y="105"/><use href="#knob" x="1410" y="190"/><use href="#knob" x="1410" y="280"/>
+    <use href="#knob" x="1485" y="59"/><use href="#toggle" x="1485" y="149"/><use href="#knob" x="1485" y="240"/>
+
+    <use href="#knob" x="40" y="485"/><use href="#knob" x="80" y="560"/><use href="#toggle" x="80" y="650"/>
+    <use href="#knob" x="125" y="480"/><use href="#knob" x="205" y="540"/><use href="#knob" x="205" y="635"/>
+    <use href="#knob" x="250" y="475"/><use href="#knob" x="315" y="535"/><use href="#toggle" x="315" y="625"/>
+
+    <use href="#knob" x="1585" y="285"/><use href="#knob" x="1640" y="350"/>
+    <use href="#knob" x="1685" y="245"/><use href="#knob" x="1745" y="345"/>
+    <use href="#knob" x="1790" y="300"/><use href="#knob" x="1848" y="350"/>
+    <use href="#knob" x="1605" y="540"/><use href="#knob" x="1605" y="650"/><use href="#toggle" x="1605" y="750"/>
+    <use href="#knob" x="1735" y="510"/><use href="#knob" x="1735" y="620"/><use href="#toggle" x="1735" y="725"/>
+    <use href="#knob" x="1870" y="550"/><use href="#knob" x="1870" y="660"/><use href="#toggle" x="1870" y="750"/>
+
+    <use href="#knob" x="1370" y="840"/><use href="#toggle" x="1370" y="930"/>
+    <use href="#knob" x="1480" y="835"/><use href="#toggle" x="1480" y="930"/>
+    <use href="#knob" x="1605" y="820"/><use href="#toggle" x="1605" y="905"/>
+    <use href="#knob" x="1735" y="820"/><use href="#toggle" x="1735" y="905"/>
+    <use href="#knob" x="1870" y="820"/><use href="#toggle" x="1870" y="905"/>
+  </g>
+
+  <g opacity=".76">
+    <use href="#label" x="150" y="44"/><use href="#label" x="205" y="706"/>
+    <use href="#label" x="1605" y="704"/><use href="#label" x="1735" y="684"/><use href="#label" x="1870" y="708"/>
+  </g>
+
+  <g fill="#65766c" opacity=".55">
+    <circle cx="365" cy="460" r="3"/><circle cx="544" cy="510" r="2.5"/><circle cx="718" cy="465" r="3"/>
+    <circle cx="880" cy="590" r="2.5"/><circle cx="1050" cy="515" r="3"/><circle cx="1218" cy="610" r="2.5"/>
+    <circle cx="1340" cy="490" r="3"/><circle cx="1488" cy="570" r="2.5"/><circle cx="970" cy="735" r="3"/>
+  </g>
+</svg>
